@@ -28,15 +28,22 @@ public class HomePage extends Page{
         // Gebruik language en theme om je HTML te genereren
         out.println("<html>");
         out.println("<head>");
-        out.println("<style>");
-        if ("dark".equals(theme)) {
-            out.println("body { background: #222; color: #eee; }");
-        } else {
-            out.println("body { background: #fff; color: #222; }");
-        }
-        out.println("</style>");
+
+//        out.println("<style>");
+//        if ("dark".equals(theme)) {
+//            out.println("body { background: #222; color: #eee; }");
+//        } else {
+//            out.println("body { background: #fff; color: #222; }");
+//        }
+//        out.println("</style>");
+        out.println("<link rel='stylesheet' href=\"styles.css\">");
         out.println("</head>");
         out.println("<body>");
+        out.println("<div id='feedback'></div>");
+        out.println("<div class='loading' id='loading'>");
+        out.println("<div class='spinner'></div>");
+        out.println("<p>Loading...</p>");
+        out.println("</div>");
 
         out.println("<div id='stap1'>");
         if ("en".equals(language)) {
@@ -46,20 +53,36 @@ public class HomePage extends Page{
             out.println("<h1>Welkom " + username + "!</h1>");
             out.println("<p>Stap 1: Persoonlijke informatie</p>");
         }
-        out.println("<form method='post' action='/survey/step1'>");
+        out.println("<form id='step1Form'>");
         out.println("<label for= 'naam'>Naam: </label>");
-        out.println("<input type = 'text' name = 'naam'/><br>");
+        out.println("<input id='naam' type = 'text' name = 'naam'/><br>");
         out.println("<label for= 'e-mail'>e-mail: </label>");
-        out.println("<input type = 'text' name = 'e-mail'/><br>");
-        out.println("<button id='button' type='submit' value='Submit'>Submit</button>");
+        out.println("<input id='email' type = 'text' name = 'e-mail'/><br>");
+        out.println("<button id='next' type='submit' value='Submit'>Submit</button>");
         out.println("</form>");
         out.println("</div>");
 
-        out.println("<div id='stap2'>");
-        out.println("<p> hallo </p>");
+        out.println("<div id='stap2' class='invisible'>");
+        out.println("<form id='step2Form'>");
+        out.println("<label for= 'postcode'>Postcode: </label>");
+        out.println("<input id = 'postcode' type = 'text' name = 'postcode'/><br>");
+        out.println("<label for= 'huisnummer'>Huisnummer: </label>");
+        out.println("<input id='huisnummer' type = 'number' name = 'huisnummer'/><br>");
+        out.println("<button type='submit' value='Submit'>Submit</button>");
+        out.println("</form>");
         out.println("</div>");
 
-        out.println("<script src='app.js'></script>");
+        out.println("<div id='stap3' class='invisible'>");
+        out.println("<table>");
+        out.println("<tr><td><label for='naam_result'>Naam:</label></td><td><p id='naam_result'></p></td></tr>");
+        out.println("<tr><td><label for='email_result'>E-mail:</label></td><td><p id='email_result'></p></td></tr>");
+        out.println("<tr><td><label for='postcode_result'>Postcode:</label></td><td><p id='postcode_result'></p></td></tr>");
+        out.println("<tr><td><label for='huisnummer_result'>Huisnummer:</label></td><td><p id='huisnummer_result'></p></td></tr>");
+        out.println("</table>");
+        out.println("</div>");
+
+
+        out.println("<script src=\"script.js\"></script>");
 
         out.println("</body></html>");
     }
