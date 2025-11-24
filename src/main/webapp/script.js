@@ -13,10 +13,9 @@ let postcodeResult = document.getElementById("postcode_result");
 let huisnummerResult = document.getElementById("huisnummer_result");
 let feedback = document.getElementById('feedback');
 
-step1Form.addEventListener("submit", function(event) {
+step1Form.addEventListener("submit",  function(event) {
     event.preventDefault();
-    updateFeedback("Stap " + (1) + " is verzonden.");
-    showStep(2);
+    validate(1, '/validation/step1', event);
 });
 
 step2Form.addEventListener("submit", function(event) {
@@ -75,12 +74,54 @@ function submitStep(stepNumber) {
                 console.log('2 seconden wachten om loading te tonen');
                 this.hideLoading();
             }, 2000);
-            // console.error('AJAX error:', error);
-            // if (onError) onError(error);
+            console.error('AJAX error:', error);
+            if (onError) onError(error);
         });
     showStep(++stepNumber);
     updateFeedback("Stap " + (stepNumber) + " is verzonden.");
 }
+
+function validate(stepNumber, path, event) {
+    showLoading();
+
+    // data = {
+    //     naam: naam.value,
+    //     email: email.value,
+    //     postcode: postcode.value,
+    //     huisnummer: huisnummer.value
+    // };
+    console.dir(event);
+
+    const formData = new URLSearchParams(new FormData(event.target));
+
+    fetch('http://localhost:8080'+ path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'  // Form data
+        },
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            setTimeout(() => {
+                console.log('2 seconden wachten om loading te tonen');
+                this.hideLoading();
+            }, 2000);
+            showStep(++stepNumber);
+            updateFeedback("Stap " + (stepNumber) + " is verzonden.");
+            // if (onSuccess) onSuccess(data);
+        })
+        .catch(error => {
+            setTimeout(() => {
+                console.log('2 seconden wachten om loading te tonen');
+                this.hideLoading();
+            }, 2000);
+            console.error('AJAX error:', error);
+            if (onError) onError(error);
+        });
+
+}
+
 
 function showStep(stepNumber){
     switch (stepNumber){

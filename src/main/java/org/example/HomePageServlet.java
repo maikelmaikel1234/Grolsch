@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -21,17 +22,17 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StringBuilder sb = new StringBuilder();
-        BufferedReader reader = req.getReader();
-        String line;
-        while ((line = reader.readLine()) != null)
-        {
-            sb.append(line);
-        }
-        String jsonBody = sb.toString();
-        Gson gson = new Gson();
-        User userData = gson.fromJson(jsonBody, User.class);
+        String naam = req.getSession().getAttribute("naam").toString();
+        String email = req.getSession().getAttribute("email").toString();
+        String postcode = req.getSession().getAttribute("postcode").toString();
+        String huisnummer = req.getSession().getAttribute("huisnummer").toString();
 
-        System.out.println(userData.toString());
+        User user = new User();
+        user.setNaam(naam);
+        user.setEmail(email);
+        user.setPostcode(postcode);
+        user.setHuisnummer(Integer.parseInt(huisnummer));
+
+        System.out.println(user);
     }
 }
