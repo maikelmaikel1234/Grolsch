@@ -20,11 +20,7 @@ step1Form.addEventListener("submit",  function(event) {
 
 step2Form.addEventListener("submit", function(event) {
     event.preventDefault();
-    submitStep(2);
-    naamResult.textContent = naam.value
-    emailResult.textContent = email.value
-    postcodeResult.textContent = postcode.value
-    huisnummerResult.textContent = huisnummer.value
+    validate(2, '/validation/step2', event);
 });
 
 function showLoading() {
@@ -65,14 +61,14 @@ function submitStep(stepNumber) {
         .then(data => {
             setTimeout(() => {
                 console.log('2 seconden wachten om loading te tonen');
-                this.hideLoading();
+                hideLoading();
             }, 2000);
             // if (onSuccess) onSuccess(data);
         })
         .catch(error => {
             setTimeout(() => {
                 console.log('2 seconden wachten om loading te tonen');
-                this.hideLoading();
+                hideLoading();
             }, 2000);
             console.error('AJAX error:', error);
             if (onError) onError(error);
@@ -84,12 +80,6 @@ function submitStep(stepNumber) {
 function validate(stepNumber, path, event) {
     showLoading();
 
-    // data = {
-    //     naam: naam.value,
-    //     email: email.value,
-    //     postcode: postcode.value,
-    //     huisnummer: huisnummer.value
-    // };
     console.dir(event);
 
     const formData = new URLSearchParams(new FormData(event.target));
@@ -105,19 +95,33 @@ function validate(stepNumber, path, event) {
         .then(data => {
             setTimeout(() => {
                 console.log('2 seconden wachten om loading te tonen');
-                this.hideLoading();
+                hideLoading();
             }, 2000);
-            showStep(++stepNumber);
-            updateFeedback("Stap " + (stepNumber) + " is verzonden.");
-            // if (onSuccess) onSuccess(data);
+
+            if (data.success) {
+                // Special handling for step 3 (final step)
+                if (stepNumber === 2) {
+                    // Fill in the results on step 3 and show it
+                    naamResult.textContent = naam.value;
+                    emailResult.textContent = email.value;
+                    postcodeResult.textContent = postcode.value;
+                    huisnummerResult.textContent = huisnummer.value;
+                }
+                // Only proceed to next step on success
+                showStep(stepNumber + 1);
+                updateFeedback(data.message);
+            } else {
+                // Show error message and stay on current step
+                updateFeedback(data.message);
+            }
         })
         .catch(error => {
             setTimeout(() => {
                 console.log('2 seconden wachten om loading te tonen');
-                this.hideLoading();
+                hideLoading();
             }, 2000);
             console.error('AJAX error:', error);
-            if (onError) onError(error);
+            updateFeedback("Er is een fout opgetreden. Probeer opnieuw.");
         });
 
 }

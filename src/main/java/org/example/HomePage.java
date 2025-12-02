@@ -15,10 +15,10 @@ public class HomePage extends Page{
     @Override
     public void render() throws IOException {
         HttpSession session = request.getSession(false);
-//        if (session != null && session.getAttribute("username") == null) {
-//            response.sendRedirect("/login");
-//            return;
-//        }
+        if (session != null && session.getAttribute("username") == null) {
+            response.sendRedirect("/login");
+            return;
+        }
 
         PrintWriter out = getWriter();
         String language = getLanguage();
@@ -30,11 +30,11 @@ public class HomePage extends Page{
         out.println("<head>");
 
 //        out.println("<style>");
-//        if ("dark".equals(theme)) {
-//            out.println("body { background: #222; color: #eee; }");
-//        } else {
-//            out.println("body { background: #fff; color: #222; }");
-//        }
+        if ("dark".equals(theme)) {
+            out.println("body { background: #222; color: #eee; }");
+        } else {
+            out.println("body { background: #fff; color: #222; }");
+        }
 //        out.println("</style>");
         out.println("<link rel='stylesheet' href=\"styles.css\">");
         out.println("</head>");
