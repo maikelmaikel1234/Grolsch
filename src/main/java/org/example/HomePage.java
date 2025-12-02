@@ -29,13 +29,13 @@ public class HomePage extends Page{
         out.println("<html>");
         out.println("<head>");
 
-//        out.println("<style>");
+        out.println("<style>");
         if ("dark".equals(theme)) {
             out.println("body { background: #222; color: #eee; }");
         } else {
             out.println("body { background: #fff; color: #222; }");
         }
-//        out.println("</style>");
+        out.println("</style>");
         out.println("<link rel='stylesheet' href=\"styles.css\">");
         out.println("</head>");
         out.println("<body>");
@@ -55,9 +55,9 @@ public class HomePage extends Page{
         }
         out.println("<form id='step1Form'>");
         out.println("<label for= 'naam'>Naam: </label>");
-        out.println("<input id='naam' type = 'text' name = 'naam'/><br>");
+        out.println("<input id='naam' type = 'text' name = 'naam' required/><br>");
         out.println("<label for= 'e-mail'>e-mail: </label>");
-        out.println("<input id='email' type = 'email' name = 'e-mail'/><br>");
+        out.println("<input id='email' type = 'email' name = 'e-mail' required/><br>");
         out.println("<button id='next' type='submit' value='Submit'>Submit</button>");
         out.println("</form>");
         out.println("</div>");
@@ -65,9 +65,9 @@ public class HomePage extends Page{
         out.println("<div id='stap2' class='invisible'>");
         out.println("<form id='step2Form'>");
         out.println("<label for= 'postcode'>Postcode: </label>");
-        out.println("<input id = 'postcode' type = 'text' name = 'postcode' pattern='[0-9]{4}[A-Z]{2}'/><br>");
+        out.println("<input id = 'postcode' type = 'text' name = 'postcode' pattern='[0-9]{4}[A-Z]{2}' required/><br>");
         out.println("<label for= 'huisnummer'>Huisnummer: </label>");
-        out.println("<input id='huisnummer' type = 'number' name = 'huisnummer'/><br>");
+        out.println("<input id='huisnummer' type = 'number' name = 'huisnummer' required/><br>");
         out.println("<button type='submit' value='Submit'>Submit</button>");
         out.println("</form>");
         out.println("</div>");
