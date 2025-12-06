@@ -14,7 +14,7 @@ public class LoginServlet extends HttpServlet {
 
     // Hardcoded users voor demo
     private static final Map<String, String> USERS = Map.of(
-            "admin", "admin123",
+            "admin", "admin456",
             "user", "password",
             "jan", "geheim"
     );
