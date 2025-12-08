@@ -1,10 +1,7 @@
 package org.example.controller.validators;
 
-import com.google.gson.Gson;
-import org.example.controller.validators.ValidationStep1Servlet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +12,7 @@ import java.io.StringWriter;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ValidationStep1ServletTest {
+class ValidationStep1ServletTest {
 
     private ValidationStep1Servlet servlet;
     private HttpServletRequest request;
@@ -34,8 +31,8 @@ public class ValidationStep1ServletTest {
         when(response.getWriter()).thenReturn(new PrintWriter(responseWriter));
     }
 
-    @org.junit.Test
-    public void testMissingName() throws Exception {
+    @Test
+    void testMissingName() throws Exception {
         when(request.getParameter("naam")).thenReturn("");
         when(request.getParameter("e-mail")).thenReturn("test@example.com");
 

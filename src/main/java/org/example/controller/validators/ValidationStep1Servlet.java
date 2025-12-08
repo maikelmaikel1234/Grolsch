@@ -22,8 +22,7 @@ public class ValidationStep1Servlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         Gson gson = new Gson();
         Map<String, Object> response = new HashMap<>();
-
-        System.out.println(req.getParameterMap().keySet());
+        
         String naam = req.getParameter("naam");
         String email = req.getParameter("e-mail");
 
@@ -63,8 +62,6 @@ public class ValidationStep1Servlet extends HttpServlet {
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        System.out.println("Validating email: " + email);
-        System.out.println("result: " + email.matches(emailRegex));
         return email.matches(emailRegex);
     }
 }
