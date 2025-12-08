@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller.validators;
 
 import com.google.gson.Gson;
 import javax.servlet.ServletException;
@@ -11,8 +11,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/validation/step2")
-public class ValidationStep2Servlet extends HttpServlet {
+@WebServlet("/validation/step1")
+public class ValidationStep1Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,39 +23,48 @@ public class ValidationStep2Servlet extends HttpServlet {
         Gson gson = new Gson();
         Map<String, Object> response = new HashMap<>();
 
-        String postcode = req.getParameter("postcode");
-        String huisnummer = req.getParameter("huisnummer");
+        System.out.println(req.getParameterMap().keySet());
+        String naam = req.getParameter("naam");
+        String email = req.getParameter("e-mail");
 
         // Validation
-        if(postcode == null || postcode.trim().isEmpty()) {
+        if(naam == null || naam.trim().isEmpty()) {
             response.put("success", false);
-            response.put("message", "Postcode is verplicht");
+            response.put("message", "Naam is verplicht");
             out.print(gson.toJson(response));
             return;
         }
 
-        if(huisnummer == null || huisnummer.trim().isEmpty()) {
+
+        if(email == null || email.trim().isEmpty()) {
             response.put("success", false);
-            response.put("message", "Huisnummer is verplicht");
+            response.put("message", "E-mail is verplicht");
             out.print(gson.toJson(response));
+
             return;
         }
 
-        // Basic postcode validation (Dutch format: 1234AB)
-        if (!postcode.matches("[0-9]{4}[A-Z]{2}")) {
+        if (!isValidEmail(email)) {
             response.put("success", false);
-            response.put("message", "Postcode moet in het formaat 1234AB zijn");
+            response.put("message", "Ongeldig e-mail formaat");
             out.print(gson.toJson(response));
             return;
         }
 
         // Save to session
-        req.getSession().setAttribute("postcode", postcode);
-        req.getSession().setAttribute("huisnummer", huisnummer);
+        req.getSession().setAttribute("naam", naam);
+        req.getSession().setAttribute("email", email);
 
         // Success response
         response.put("success", true);
-        response.put("message", "Stap 2 succesvol verzonden");
+        response.put("message", "Stap 1 succesvol verzonden");
         out.print(gson.toJson(response));
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        System.out.println("Validating email: " + email);
+        System.out.println("result: " + email.matches(emailRegex));
+        return email.matches(emailRegex);
     }
 }

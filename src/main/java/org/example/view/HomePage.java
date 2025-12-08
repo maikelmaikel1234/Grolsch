@@ -1,4 +1,4 @@
-package org.example;
+package org.example.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class HomePage extends Page{
+public class HomePage extends Page {
 
     public HomePage(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);

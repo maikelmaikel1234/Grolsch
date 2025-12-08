@@ -41,42 +41,6 @@ function hideLoading() {
     }
 }
 
-function submitStep(stepNumber) {
-    showLoading();
-    data = {
-        naam: naam.value,
-        email: email.value,
-        postcode: postcode.value,
-        huisnummer: huisnummer.value
-    };
-
-    fetch('http://localhost:8080/ajaxHome', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'  // JSON!
-        },
-        body: JSON.stringify(data)  // Convert to JSON string
-    })
-        .then(response => response.json())
-        .then(data => {
-            setTimeout(() => {
-                console.log('2 seconden wachten om loading te tonen');
-                hideLoading();
-            }, 2000);
-            // if (onSuccess) onSuccess(data);
-        })
-        .catch(error => {
-            setTimeout(() => {
-                console.log('2 seconden wachten om loading te tonen');
-                hideLoading();
-            }, 2000);
-            console.error('AJAX error:', error);
-            if (onError) onError(error);
-        });
-    showStep(++stepNumber);
-    updateFeedback("Stap " + (stepNumber) + " is verzonden.");
-}
-
 function validate(stepNumber, path, event) {
     showLoading();
 
