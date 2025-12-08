@@ -49,6 +49,22 @@ public class ValidationStep2Servlet extends HttpServlet {
             return;
         }
 
+        // Basic huisnummer validation (must be a positive integer)
+        try {
+            int huisnummerInt = Integer.parseInt(huisnummer);
+            if (huisnummerInt <= 0) {
+                response.put("success", false);
+                response.put("message", "Huisnummer moet een positief geheel getal zijn");
+                out.print(gson.toJson(response));
+                return;
+            }
+        } catch (NumberFormatException e) {
+            response.put("success", false);
+            response.put("message", "Huisnummer moet een geldig geheel getal zijn");
+            out.print(gson.toJson(response));
+            return;
+        }
+
         // Save to session
         req.getSession().setAttribute("postcode", postcode);
         req.getSession().setAttribute("huisnummer", huisnummer);
