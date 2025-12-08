@@ -118,7 +118,7 @@ class ValidationStep2ServletTest {
         Map<String, Object> responseMap = gson.fromJson(jsonResponse, Map.class);
 
         assertFalse((Boolean) responseMap.get("success"));
-        assertEquals("Huisnummer moet in het formaat 999 zijn", responseMap.get("message"));
+        assertEquals("Huisnummer moet een geldig geheel getal zijn", responseMap.get("message"));
         verify(session, never()).setAttribute(anyString(), anyString());
     }
 
