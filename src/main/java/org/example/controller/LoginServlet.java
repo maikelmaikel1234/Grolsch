@@ -60,19 +60,15 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // TODO: Validate credentials
         if (USERS.containsKey(username) &&
                 USERS.get(username).equals(password)) {
 
-            // TODO: Create session and store username
             HttpSession session = request.getSession(true);
             session.setAttribute("username", username);
             session.setAttribute("loginTime", System.currentTimeMillis());
 
-            // TODO: Redirect to profile
             response.sendRedirect("/preferences");
         } else {
-            // TODO: Redirect back to login with error
             response.sendRedirect("/login?error=true");
         }
     }

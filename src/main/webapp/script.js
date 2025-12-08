@@ -116,5 +116,6 @@ function showStep(stepNumber){
 
 function updateFeedback(mesage){
     feedback.textContent = mesage;
+    feedback.style.display = 'block';
 }
 
