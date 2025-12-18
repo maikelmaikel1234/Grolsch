@@ -1,4 +1,4 @@
-package org.example;
+package org.example.view;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

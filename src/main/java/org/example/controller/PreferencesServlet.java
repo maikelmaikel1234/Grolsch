@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -54,7 +54,7 @@ public class PreferencesServlet extends HttpServlet {
         response.addCookie(createCookie("language", language));
         response.addCookie(createCookie("theme", theme));
 
-        response.sendRedirect("/survey/step1");
+        response.sendRedirect("/ajaxHome");
     }
 
     private Cookie getCookie(HttpServletRequest request, String cookieName, String defaultValue)
